@@ -96,6 +96,7 @@ const waterfall = ref(null)
 //     }
 //   }
 // }
+//  使用hooks 函数编程
 import { useWaterFall } from './useWaterFall.js'
 onMounted(() => {
   // imgLocation()

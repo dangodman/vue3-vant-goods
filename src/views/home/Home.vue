@@ -1,9 +1,7 @@
 <template>
   <!-- search -->
-  <div class="fixed top-0 inset-x-0 w-full z-10">
-    <Search />
-  </div>
-  <div class="mt-14">
+    <Search class="fixed top-0 inset-x-0 w-full z-10" />
+  <div class="mt-14 w-full h-screen overflow-auto">
     <van-tabs swipeable>
       <van-tab  v-for="item in homeData" :title="item.title">
         <Component  :is="item.component" />

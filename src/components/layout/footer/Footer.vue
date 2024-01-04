@@ -1,12 +1,4 @@
 <template>
-  <!-- <div class="fixed bottom-0 bg-green-500 w-full p-2 flex justify-between">
-    <div v-for="item in footer" class="flex items-center">
-      <router-link :to="item.path">
-        <IconPark :icon="item.icon" :theme="item.theme" strokeLinejoin="miter" strokeLinecap="butt" />
-        <span>{{ item.title }}</span>
-      </router-link>
-    </div>
-  </div> -->
   <div class="bg-sky-200 fixed inset-x-0 bottom-0 pl-4 pr-4 pt-2">
     <ul class="flex justify-between">
       <li v-for="(item, index) in footer" :key="index">

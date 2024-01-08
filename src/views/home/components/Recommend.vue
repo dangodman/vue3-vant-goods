@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-12 w-full h-screen overflow-auto  relative bg-[#f4f3f8]" ref="waterfall">
+  <div class=" w-full h-screen overflow-auto  relative bg-[#f4f3f8]" ref="waterfall">
     <div class="w-1/2 p-0.5 float-left bg-white" v-for="item in recommendData">
       <router-link :to="{ path: '/detail', query: { id: item.id } }">
         <div class="card_img ">

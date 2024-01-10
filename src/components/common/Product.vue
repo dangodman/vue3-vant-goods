@@ -4,6 +4,7 @@
       <div class="flex justify-between p-1">
         <div
           class="rounded-full w-10 h-10 flex items-center justify-center bg-white opacity-100"
+          @click="goBack"
         >
           <van-icon size="30" name="arrow-left" />
         </div>
@@ -75,7 +76,10 @@
           </div>
         </div>
         <!-- 评价 -->
-        <div v-for="item in 10" class="w-full bg-white py-4 space-y-1 border-b border-gray-400">
+        <div
+          v-for="item in 10"
+          class="w-full bg-white py-4 space-y-1 border-b border-gray-400"
+        >
           <div class="flex justify-between items-center">
             <div class="flex justify-between items-center space-x-2">
               <img
@@ -125,22 +129,19 @@
     </section>
     <div class="w-full h-10"></div>
     <footer>
-      <van-action-bar>
-        <van-action-bar-icon icon="like-o" size="20" text="想要" badge="447" />
-        <van-action-bar-icon icon="certificate" text="我有" />
-        <van-action-bar-icon icon="service" text="客服" color="black" />
-        <van-action-bar-button type="warning" text="加入购物车" />
-        <van-action-bar-button type="default" color="#00cacc" text="立即购买" />
-      </van-action-bar>
+      <shoppingCart />
     </footer>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+import shoppingCart from "@/components/common/shoppingCart.vue";
+const router = useRouter();
 const images = reactive([
-  "https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg",
-  "https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg",
+  "https://webimg.dewucdn.com/pro-img/cut-img/20231103/bc40f60ea45745439bac1f303ea6846f.png?x-oss-process=image/resize,w_1125",
+  "https://webimg.dewucdn.com/pro-img/cut-img/20231103/bc40f60ea45745439bac1f303ea6846f.png?x-oss-process=image/resize,w_1125",
 ]);
 const active = ref(false);
 const value = ref(4);
@@ -151,6 +152,9 @@ window.addEventListener("scroll", () => {
     active.value = false;
   }
 });
+const goBack = () => {
+  router.back();
+};
 </script>
 
 <style scoped></style>

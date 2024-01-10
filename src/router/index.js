@@ -40,11 +40,47 @@ const routes = [
     name: "product",
     component: () => import("@/components/common/Product.vue"),
   },
+  {
+    path: "/options",
+    name: "options",
+    component: () => import("@/views/LoginRegisterPage/Options.vue"),
+  },
+  {
+    path: "/options/login",
+    name: "login",
+    component: () => import("@/views/LoginRegisterPage/Login.vue"),
+  },
+  {
+    path: "/options/register",
+    name: "register",
+    component: () => import("@/views/LoginRegisterPage/Register.vue"),
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes: routes,
+});
+
+const EnterableRoutes = [
+  "home",
+  "mine",
+  "login",
+  "options",
+  "register",
+  "purchase",
+  "explore",
+];
+router.beforeEach((to, _from, next) => {
+  if (EnterableRoutes.includes(to.name)) {
+    next();
+  } else {
+    if (localStorage.getItem("token")) {
+      next();
+    } else {
+      next("/options");
+    }
+  }
 });
 
 export default router;

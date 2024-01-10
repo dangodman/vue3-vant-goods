@@ -29,7 +29,7 @@ function calcWaterFall(waterfall) {
 }
 
 export function useWaterFall(waterfall) {
-  document.addEventListener("resize", () => {
-    calcWaterFall(waterfall);
-  });
+  // document.addEventListener("resize", () => {
+  calcWaterFall(waterfall);
+  // });
 }

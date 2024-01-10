@@ -1,7 +1,6 @@
 <template>
-  <div class="h-14">
-    <Search class="fixed inset-x-0" />
-  </div>
+  <Search class="fixed inset-x-0 z-10" />
+  <div class="w-full h-14"></div>
   <van-tabs swipeable>
     <van-tab v-for="item in purchaseData" :title="item.title">
       <Component :is="item.component" />

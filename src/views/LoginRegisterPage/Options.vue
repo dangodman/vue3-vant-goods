@@ -48,7 +48,7 @@ const toAccountLogin = () => {
   router.push("/options/login");
 };
 const goBack = () => {
-  router.push("/home")
+  router.push('/my')
 };
 </script>
 

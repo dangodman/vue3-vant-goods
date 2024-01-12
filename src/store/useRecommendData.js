@@ -153,7 +153,8 @@ export const useRecommendStore = defineStore("recommend", () => {
         "https://th.bing.com/th/id/R.0bae22e498f409b11760aa748770b026?rik=bfRtaA5JMNTPmw&pid=ImgRaw&r=0",
       author: "dante",
       thumbsUp: 65,
-    },    {
+    },
+    {
       id: "1",
       image:
         "https://images.pexels.com/photos/13804085/pexels-photo-13804085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -202,7 +203,7 @@ export const useRecommendStore = defineStore("recommend", () => {
         "https://th.bing.com/th/id/R.0bae22e498f409b11760aa748770b026?rik=bfRtaA5JMNTPmw&pid=ImgRaw&r=0",
       author: "dante",
       thumbsUp: 65,
-    }
+    },
   ]);
   return {
     recommendData,

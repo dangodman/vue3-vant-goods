@@ -12,7 +12,7 @@
           strokeLinecap="square"
         />
       </div>
-      <div class="flex">
+      <div @click="ToSettings">
         <IconPark
           :icon="Config"
           theme="outline"
@@ -156,7 +156,10 @@ const router = useRouter();
 const token = localStorage.getItem("token");
 
 const toLogin = () => {
-  router.push("/options")
+  router.push("/options");
+};
+const ToSettings = () => {
+  router.push("/my/settings");
 };
 </script>
 

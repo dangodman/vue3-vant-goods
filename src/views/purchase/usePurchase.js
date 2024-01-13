@@ -1,4 +1,5 @@
 import Recommend from "./components/Recommend.vue";
+import TrendyShop from "./components/TrendyShop.vue"
 export function usePurchaseData() {
   const purchaseData = [
     {
@@ -9,6 +10,7 @@ export function usePurchaseData() {
     {
       id: 2,
       title: "潮鞋",
+      component:TrendyShop,
     },
     {
       id: 3,

@@ -1,10 +1,10 @@
 <template>
   <div
-    class="w-full h-screen overflow-auto relative bg-[#f4f3f8]"
+    class="w-full h-screen overflow-auto relative bg-[#f4f3f8] flex flex-wrap"
     ref="waterfall"
   >
     <div
-      class="w-1/2 p-0.5 float-left bg-white"
+      class="w-1/2 p-0.5  bg-white"
       v-for="item in recommendData"
       @click="togoods(item.id)"
     >
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from "vue";
+import { ref } from "vue";
 import { useWaterFall } from "./useWaterFall.js";
 import { useRecommendStore } from "@/store/useRecommendData.js";
 import { useRouter } from "vue-router";
@@ -58,9 +58,9 @@ const thumbsUp = (val) => {
     }
   });
 };
-nextTick(() => {
-  useWaterFall(waterfall);
-});
+// nextTick(() => {
+//   useWaterFall(waterfall);
+// });
 </script>
 
 <style scoped>

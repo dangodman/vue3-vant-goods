@@ -59,6 +59,11 @@ const routes = [
     path:'/home/search',
     name:'search',
     component:()=>import("@/views/home/components/Search.vue")
+  },
+  {
+    path:'/my/settings',
+    name:'settings',
+    component:()=>import("@/views/mine/components/Settings.vue")
   }
 ];
 

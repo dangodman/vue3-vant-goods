@@ -25,7 +25,7 @@
           />
         </van-cell-group>
         <div style="margin: 16px">
-          <van-button block color="#d2d2d2" native-type="submit">
+          <van-button block color="#00c2c2" native-type="submit">
             登录
           </van-button>
         </div>
@@ -50,6 +50,10 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import { getLogin } from "@/api";
+import { showFailToast, showSuccessToast } from "vant";
+import {useCounterStore} from '@/store/usePersonalInformation.js'
+const counterStore = useCounterStore()
 const router = useRouter();
 const params = reactive({
   username: "",
@@ -62,7 +66,26 @@ const goBack = () => {
 const toRegister = () => {
   router.push("/options/register");
 };
-const onSubmit = () => {};
+const onSubmit = async () => {
+  if (!params.checked){
+    showFailToast("请先同意用户协议和隐私政策");
+    return 
+  }
+  const data = await getLogin(params.username, params.password);
+  console.log(data)
+  if(data.code === '8000'){
+    showSuccessToast("登录成功");
+    const token = data.token
+    const user = data.data.username
+    localStorage.setItem('token',token)
+    localStorage.setItem('user',user)
+    await counterStore.getUser(user)
+    
+    setTimeout(()=>{
+      router.push("/home")
+    },500)
+  }
+};
 </script>
 
 <style scoped></style>

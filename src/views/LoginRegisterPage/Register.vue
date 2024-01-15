@@ -24,7 +24,7 @@
             :rules="[{ required: true, message: '请填写密码' }]"
           />
           <van-field
-            v-model="params.password"
+            v-model="params.rpassword"
             type="rpassword"
             name="确认密码"
             label="确认密码"
@@ -58,10 +58,13 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import { getRegister } from "@/api";
+import { showFailToast, showSuccessToast } from "vant";
 const router = useRouter();
 const params = reactive({
   username: "",
   password: "",
+  rpassword: "",
   checked: false,
 });
 const goBack = () => {
@@ -70,7 +73,20 @@ const goBack = () => {
 const toRegister = () => {
   router.push("/options/login");
 };
-const onSubmit = () => {};
+const onSubmit = async () => {
+  if (!params.checked) {
+    showFailToast("请先同意用户协议和隐私政策");
+    return;
+  }
+  const data = await getRegister(params.username, params.password);
+  console.log(data);
+  if (data.code === "8000") {
+    showSuccessToast("注册成功");
+    setTimeout(() => {
+      router.push("/options/login");
+    }, 500);
+  }
+};
 </script>
 
 <style scoped></style>

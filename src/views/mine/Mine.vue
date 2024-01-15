@@ -29,11 +29,17 @@
         <van-image
           round
           class="w-[70px] h-[70px]"
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+          :src="
+            userInfo.avatar
+              ? userInfo.avatar
+              : 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
+          "
         />
         <div class="flex-1 ml-2">
-          <div class="font-bold text-lg">名字</div>
-          <div class="text-xs">个性签名</div>
+          <div class="font-bold text-lg">
+            {{ userInfo.nickname ? userInfo.nickname : "昵称" }}
+          </div>
+          <div class="text-xs">未设置签名</div>
         </div>
       </div>
       <div v-else class="flex items-center my-2" @click="toLogin">
@@ -48,20 +54,20 @@
       </div>
       <div class="flex justify-between mr-5">
         <div class="flex flex-col items-center text-sm">
-          <span class="font-bold">0</span>
+          <span class="font-bold">{{ userInfo.liked }}</span>
           <span class="text-[#848388]">获赞与收藏</span>
         </div>
         <div class="flex flex-col items-center text-sm">
-          <span class="font-bold">0</span>
+          <span class="font-bold">{{ userInfo.fan }}</span>
           <span class="text-[#848388]">粉丝</span>
         </div>
         <div class="flex flex-col items-center text-sm">
-          <span class="font-bold">0</span>
-          <span class="text-[#848388]">粉丝</span>
+          <span class="font-bold">{{ userInfo.focusOn }}</span>
+          <span class="text-[#848388]">关注</span>
         </div>
         <div class="flex flex-col items-center text-sm">
-          <span class="font-bold">0</span>
-          <span class="text-[#848388]">粉丝</span>
+          <span class="font-bold">{{ userInfo.dynamic }}</span>
+          <span class="text-[#848388]">动态</span>
         </div>
       </div>
     </div>
@@ -152,15 +158,23 @@ import Wallet from "@/components/common/Wallet.vue";
 import Serve from "@/components/common/Serve.vue";
 import { ScanCode, Config } from "@icon-park/vue-next";
 import { useRouter } from "vue-router";
+import { useCounterStore } from "@/store/usePersonalInformation.js";
+import { ref, onMounted, computed } from "vue";
+const counterStore = useCounterStore();
 const router = useRouter();
 const token = localStorage.getItem("token");
-
+const user = localStorage.getItem("user");
+const userInfo = ref({});
 const toLogin = () => {
   router.push("/options");
 };
 const ToSettings = () => {
   router.push("/my/settings");
 };
+onMounted(async () => {
+  await counterStore.getUser(user);
+  userInfo.value = counterStore.personalInfo;
+});
 </script>
 
 <style scoped>

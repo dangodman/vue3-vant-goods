@@ -23,11 +23,29 @@ export async function getSocial() {
   return data;
 }
 
-export async function getPersonal(id_s){
+export async function getPersonal(id_s) {
   const { data } = await http.post("/personalSocial", { id_s });
-  return data
+  return data;
 }
 export async function getComments(id_s) {
   const { data } = await http.post("/comment", { id_s });
+  return data;
+}
+
+// 发表评论
+export async function postComments(params) {
+  const { data } = await http.post("/postComment", params);
+  return data;
+}
+
+// 获取商品列表
+export async function getGoodsList() {
+  const { data } = await http.get("/product");
+  return data;
+}
+
+// 获取单个商品
+export async function getGoods(id) {
+  const { data } = await http.post("/productbyid", { id });
   return data;
 }

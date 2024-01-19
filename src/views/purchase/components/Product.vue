@@ -26,7 +26,7 @@
       <div class="w-full relative">
         <van-swipe lazy-render>
           <van-swipe-item v-for="items in images">
-            <img class="bg-cover" :src="items" alt="" />
+            <img class="bg-cover w-full aspect-square" :src="items" alt="" />
           </van-swipe-item>
           <template #indicator="{ active, total }">
             <div
@@ -39,12 +39,14 @@
       </div>
       <div class="bg-white m-1 p-2 space-y-1">
         <div class="space-x-2">
-          <span class="text-2xl font-bold">￥42</span>
+          <span class="text-2xl font-bold">￥{{ goodData.price }}</span>
           <span class="text-xs text-gray-500">包邮优惠价</span>
         </div>
-        <h1 class="text-lg font-bold">商品名称</h1>
-        <div class="text-xs text-gray-500">添加益生菌膳食纤维</div>
-        <div class="text-xs text-gray-500">17评价 · 1000人付款</div>
+        <h1 class="text-lg font-bold">{{ goodData.p_name }}</h1>
+        <div class="text-xs text-gray-500">{{ goodData.desc }}</div>
+        <div class="text-xs text-gray-500">
+          17评价 · {{ goodData.payment }}人付款
+        </div>
       </div>
       <div class="bg-white m-1 p-2">
         <div class="flex justify-between items-center my-2">
@@ -57,8 +59,8 @@
         <div class="grid grid-cols-5 p-2 bg-slate-100">
           <div class="col-span-2">
             <div class="flex items-center space-x-1">
-              <h2 class="text-lg font-bold">9.5</h2>
-              <van-rate v-model="value" :count="5" size="10" />
+              <h2 class="text-lg font-bold">{{ goodData.score }}</h2>
+              <van-rate v-model="score" :count="5" size="10" />
             </div>
             <div class="text-xs text-gray-500">749人评分</div>
           </div>
@@ -91,7 +93,7 @@
             </div>
             <span class="text-xs text-gray-500">2023.11.19</span>
           </div>
-          <van-rate v-model="value" :count="5" size="10" />
+          <van-rate v-model="score" :count="5" size="10" />
           <p class="text-sm">
             很好喝，下回还在值得入手，非常的健康好喝，dfdfdfdnfldfdfdfd大幅度发的
           </p>
@@ -129,22 +131,23 @@
     </section>
     <div class="w-full h-10"></div>
     <footer>
-      <shoppingCart />
+      <shoppingCart :goodData="goodData" />
     </footer>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import shoppingCart from "@/components/common/shoppingCart.vue";
+import { getGoods } from "@/api";
+import { formatImg } from "@/utils";
 const router = useRouter();
-const images = reactive([
-  "https://webimg.dewucdn.com/pro-img/cut-img/20231103/bc40f60ea45745439bac1f303ea6846f.png?x-oss-process=image/resize,w_1125",
-  "https://webimg.dewucdn.com/pro-img/cut-img/20231103/bc40f60ea45745439bac1f303ea6846f.png?x-oss-process=image/resize,w_1125",
-]);
+const route = useRoute();
+const goodData = ref({});
+const images = ref([]);
+const score = ref(0);
 const active = ref(false);
-const value = ref(4);
 window.addEventListener("scroll", () => {
   if (window.scrollY > 0) {
     active.value = true;
@@ -155,6 +158,13 @@ window.addEventListener("scroll", () => {
 const goBack = () => {
   router.back();
 };
+onMounted(async () => {
+  // 通过id获取商品信息
+  const { data } = await getGoods(route.query.id);
+  goodData.value = data;
+  images.value = formatImg(goodData.value.images);
+  score.value = Math.round(goodData.value.score / 2);
+});
 </script>
 
 <style scoped></style>

@@ -28,10 +28,10 @@ axios.interceptors.response.use(
 );
 
 const http = {
-  get(url, params) {
+  get(url) {
     return new Promise((resolve, reject) => {
       axios
-        .get(url, params)
+        .get(url)
         .then((res) => {
           resolve(res);
         })

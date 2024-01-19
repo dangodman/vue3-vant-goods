@@ -4,6 +4,7 @@ export const useCounterStore = defineStore("personal", {
   state: () => {
     return {
       personalInfo: {
+        username: "",
         nickname: "",
         avatar: "",
         liked: 0,

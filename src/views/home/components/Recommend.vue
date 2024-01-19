@@ -85,8 +85,6 @@ onMounted(async () => {
   recommendDataR.value = recommendData.value.filter(
     (item) => item.id_s % 2 === 0
   );
-  console.log(recommendDataL.value);
-  console.log(recommendDataR.value);
 });
 </script>
 

@@ -11,7 +11,6 @@
 <script setup>
 import { usePurchaseData } from "./usePurchase.js";
 const { purchaseData } = usePurchaseData();
-console.log(purchaseData);
 </script>
 
 <style scoped></style>

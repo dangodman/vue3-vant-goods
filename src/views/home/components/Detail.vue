@@ -55,7 +55,7 @@
                 <p class="text-sm">{{ item.content }}</p>
                 <div class="text-xs text-gray-500">
                   <div class="space-x-2 mb-2">
-                    <span>4小时前 · {{ item.city }}</span>
+                    <span>{{ formatTime(item.time) }} · {{ item.city }}</span>
                     <span>回复</span>
                   </div>
                 </div>
@@ -77,6 +77,8 @@
             class="bg-gray-100 text-sm h-8 rounded-xl"
             type="text"
             placeholder="发言要友善, 畅聊不引战"
+            v-model="myComment"
+            @keyup.enter="onComment"
           />
         </div>
         <div class="ml-4 px-2 flex items-center space-x-4">
@@ -103,18 +105,35 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted, computed } from "vue";
-import { getComments, getPersonal, getuser } from "@/api";
+import { getComments, getPersonal, getuser, postComments } from "@/api";
 import { useCounterStore } from "@/store/usePersonalInformation.js";
+import { formatTime } from "@/utils";
 const PersonalStore = useCounterStore();
-const id_s = ref();
 const route = useRoute();
 const router = useRouter();
 const user = ref({});
 const comments = ref([]);
 const content = ref({});
 const images = ref([]);
+const myComment = ref("");
+const avatar = computed(() => PersonalStore.personalInfo.avatar);
+const onComment = async () => {
+  if (myComment.value) {
+    const params = {
+      username: PersonalStore.personalInfo.nickname,
+      avatar: PersonalStore.personalInfo.avatar,
+      time: new Date().getTime(),
+      city: "江西省",
+      content: myComment.value,
+      id_s: route.query.id_s,
+    };
+    await postComments(params);
+    const { data } = await getComments(route.query.id_s);
+    comments.value = data;
+    myComment.value = "";
+  }
+};
 onMounted(async () => {
-  id_s.value = route.query.id_s;
   const { data: data1 } = await getPersonal(route.query.id_s);
   const { data: data2 } = await getuser(data1.userId);
   const { data: data3 } = await getComments(route.query.id_s);
@@ -123,8 +142,6 @@ onMounted(async () => {
   comments.value = data3;
   images.value = data1.image.split(",");
 });
-
-const avatar = computed(() => PersonalStore.personalInfo.avatar);
 </script>
 
 <style scoped>

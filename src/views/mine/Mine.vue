@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-[#f4f3f8]">
+  <div class="w-screen bg-[#f4f3f8]">
     <!-- header -->
     <div class="flex p-2 justify-between fixed top-0 inset-x-0 z-10 bg-white">
       <div>
@@ -79,7 +79,7 @@
       <div class="flex flex-1 justify-between pl-[25px] pr-3 items-center">
         <div class="flex flex-col items-center">
           <IconPark
-            :icon="Config"
+            :icon="Analysis"
             theme="outline"
             size="24"
             fill="#333"
@@ -90,36 +90,36 @@
         </div>
         <div class="flex flex-col items-center">
           <IconPark
-            :icon="Config"
+            :icon="Mark"
             theme="outline"
             size="24"
             fill="#333"
             strokeLinejoin="miter"
             strokeLinecap="square"
           />
-          <div class="text-xs">数据</div>
+          <div class="text-xs">活动</div>
         </div>
         <div class="flex flex-col items-center">
           <IconPark
-            :icon="Config"
+            :icon="PaperMoney"
             theme="outline"
             size="24"
             fill="#333"
             strokeLinejoin="miter"
             strokeLinecap="square"
           />
-          <div class="text-xs">数据</div>
+          <div class="text-xs">收益</div>
         </div>
         <div class="flex flex-col items-center">
           <IconPark
-            :icon="Config"
+            :icon="Star"
             theme="outline"
             size="24"
             fill="#333"
             strokeLinejoin="miter"
             strokeLinecap="square"
           />
-          <div class="text-xs">数据</div>
+          <div class="text-xs">评价</div>
         </div>
       </div>
     </div>
@@ -156,7 +156,7 @@ import IconPark from "@/components/common/IconPark.vue";
 import Orders from "@/components/common/Orders.vue";
 import Wallet from "@/components/common/Wallet.vue";
 import Serve from "@/components/common/Serve.vue";
-import { ScanCode, Config } from "@icon-park/vue-next";
+import { ScanCode, Config, Analysis,Mark,PaperMoney,Star } from "@icon-park/vue-next";
 import { useRouter } from "vue-router";
 import { useCounterStore } from "@/store/usePersonalInformation.js";
 import { ref, onMounted, computed } from "vue";

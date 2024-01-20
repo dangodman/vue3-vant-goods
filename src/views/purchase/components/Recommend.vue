@@ -1,5 +1,5 @@
 <template>
-  <div class="trendy">
+  <div class="trendy" ref="scrollContainer">
     <!-- 分类 -->
     <Classification :shoeData="shoeCategories" />
     <!-- 新人超值好价 -->
@@ -89,25 +89,32 @@
       </div>
     </div>
     <!-- 产品列表 -->
-    <ProductList :productData="productData" />
+    <div ref="loadMoreTrigger">
+      <ProductList :productData="productData" />
+    </div>
+    <div v-if="isFetchingMore" class="text-center">没有更多了...</div>
   </div>
 </template>
 
 <script setup>
-import { ref,onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import Classification from "@/components/layout/Classification.vue";
 import ProductList from "@/components/layout/ProductList.vue";
 import { useShoeCategories } from "@/store/useShoeCategories.js";
 import { getGoodsList } from "@/api";
-const productData = ref([])
+const productData = ref([]);
 const { shoeCategories } = useShoeCategories();
 onMounted(async () => {
   const data = await getGoodsList();
-  if(data.code === "200"){
+  if (data.code === "200") {
     productData.value = data.data;
-    console.log(data.data);
   }
 });
+
+const isFetchingMore = ref(true);
+const scrollContainer = ref(null);
+const loadMoreTrigger = ref(null);
+
 </script>
 
 <style scoped></style>

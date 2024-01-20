@@ -8,24 +8,24 @@
     </van-cell>
     <div class="flex justify-between items-center p-3">
       <div class="flex flex-col items-center">
-        <IconPark :icon="Config" theme="filled" size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
+        <IconPark :icon="BankCard"  size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
         <span class="text-xs mt-1  text-zinc-400">代付款</span>
       </div>
       <div class="flex flex-col items-center">
-        <IconPark :icon="Config" theme="filled" size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
-        <span class="text-xs mt-1  text-zinc-400">代付款</span>
+        <IconPark :icon="Commodity"  size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
+        <span class="text-xs mt-1  text-zinc-400">代发货</span>
       </div>
       <div class="flex flex-col items-center">
-        <IconPark :icon="Config" theme="filled" size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
-        <span class="text-xs mt-1  text-zinc-400">代付款</span>
+        <IconPark :icon="Transporter"  size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
+        <span class="text-xs mt-1  text-zinc-400">待收货</span>
       </div>
       <div class="flex flex-col items-center">
-        <IconPark :icon="Config" theme="filled" size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
-        <span class="text-xs mt-1  text-zinc-400">代付款</span>
+        <IconPark :icon="Currency"  size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
+        <span class="text-xs mt-1  text-zinc-400">退款/售后</span>
       </div>
       <div class="flex flex-col items-center">
-        <IconPark :icon="Config" theme="filled" size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
-        <span class="text-xs mt-1  text-zinc-400">代付款</span>
+        <IconPark :icon="MallBag"  size="24" fill="#333" strokeLinejoin="miter" strokeLinecap="square" />
+        <span class="text-xs mt-1  text-zinc-400">求购/还价</span>
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
 
 <script setup>
 import IconPark from '@/components/common/IconPark.vue'
-import { Config } from '@icon-park/vue-next'
+import { BankCard,Commodity,Transporter,Currency,MallBag } from '@icon-park/vue-next'
 </script>
 
 <style  scoped></style>

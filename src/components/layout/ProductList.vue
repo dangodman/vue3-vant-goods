@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen border-t">
+  <div class="w-screen border-t">
     <div class="flex flex-wrap">
       <div
         class="w-1/2 bg-white border-b"

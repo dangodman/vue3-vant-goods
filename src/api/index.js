@@ -49,3 +49,15 @@ export async function getGoods(id) {
   const { data } = await http.post("/productbyid", { id });
   return data;
 }
+
+// 添加购物车
+export async function postCart(params) {
+  const { data } = await http.post("/productaddcart", params);
+  return data;
+}
+
+// 获取购物车列表
+export async function getCartList(user_id) {
+  const { data } = await http.post("/findproductcart",{user_id});
+  return data;
+}

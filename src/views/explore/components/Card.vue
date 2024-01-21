@@ -13,17 +13,17 @@
             </div>
             <div class="flex-1 w-full">
               <van-card
-                :price="item.price.toFixed(2)"
-                desc="描述信息"
-                title="商品标题"
+                :price="item.product_price.toFixed(2)"
+                :desc="item.product_desc"
+                :title="item.product_name"
                 class="goods-card"
-                thumb="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                :thumb="formatImgone(item.product_img)"
               >
                 <template #footer>
                   <van-button size="small" @click="onMinus(item)"
                     ><van-icon name="minus"
                   /></van-button>
-                  <van-button size="small">{{ item.number }}</van-button>
+                  <van-button size="small">{{ item.product_num }}</van-button>
                   <van-button size="small" @click="onPlus(item)"
                     ><van-icon name="plus"
                   /></van-button>
@@ -49,15 +49,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { getCartList, getInformation } from "@/api";
+import {formatImgone} from "@/utils"
 const checked = ref([]);
 const isCheckAll = ref(false);
 const checkboxGroup = ref(null);
 const priceAll = ref(0);
 const items = ref([
-  { name: "a", price: 20, number: 2 },
-  { name: "b", price: 30, number: 1 },
-  { name: "c", price: 40, number: 1 },
 ]);
 const checkedAll = () => {
   if (isCheckAll.value) {
@@ -73,15 +72,15 @@ const checkedResult = () => {
 };
 
 const onMinus = (item) => {
-  if (item.number > 1) {
-    item.number -= 1;
+  if (item.product_num > 1) {
+    item.product_num -= 1;
     calcPrice();
   } else {
     return;
   }
 };
 const onPlus = (item) => {
-  item.number += 1;
+  item.product_num += 1;
   calcPrice();
 };
 const onSubmit = () => {
@@ -92,9 +91,21 @@ function calcPrice() {
   priceAll.value = 0;
   for (let i = 0; i < checked.value.length; i++) {
     const item = checked.value[i];
-    priceAll.value += item.price * item.number * 100;
+    priceAll.value += item.product_price * item.product_num * 100;
   }
 }
+
+onMounted(async () => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    const { data:{id} } = await getInformation(user);
+    const { data } = await getCartList(id);
+    console.log(data);
+    if (data) {
+      items.value = data;
+    }
+  }
+});
 </script>
 
 <style scoped>

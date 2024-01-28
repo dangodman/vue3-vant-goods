@@ -22,7 +22,6 @@ onMounted(async () => {
   const data = await getGoodsList();
   if (data.code === "200") {
     productData.value = data.data;
-    console.log(data.data);
   }
 });
 </script>

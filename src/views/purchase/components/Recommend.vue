@@ -1,5 +1,5 @@
 <template>
-  <div class="trendy" ref="scrollContainer">
+  <div class="trendy">
     <!-- 分类 -->
     <Classification :shoeData="shoeCategories" />
     <!-- 新人超值好价 -->
@@ -89,7 +89,7 @@
       </div>
     </div>
     <!-- 产品列表 -->
-    <div ref="loadMoreTrigger">
+    <div>
       <ProductList :productData="productData" />
     </div>
     <div v-if="isFetchingMore" class="text-center">没有更多了...</div>
@@ -97,24 +97,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import Classification from "@/components/layout/Classification.vue";
 import ProductList from "@/components/layout/ProductList.vue";
 import { useShoeCategories } from "@/store/useShoeCategories.js";
-import { getGoodsList } from "@/api";
+import { useProductData } from "@/store/useProductData.js";
+const userProductStore = useProductData();
 const productData = ref([]);
 const { shoeCategories } = useShoeCategories();
+
 onMounted(async () => {
-  const data = await getGoodsList();
-  if (data.code === "200") {
-    productData.value = data.data;
-  }
+  await userProductStore.getProductData();
+  productData.value = userProductStore.productData;
 });
 
 const isFetchingMore = ref(true);
-const scrollContainer = ref(null);
-const loadMoreTrigger = ref(null);
-
+watch(isFetchingMore, async () => {
+  if (!isFetchingMore.value) {
+    await userProductStore.getProductData();
+    productData.value = userProductStore.productData;
+    isFetchingMore.value = true;
+  }
+});
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+    isFetchingMore.value = false;
+  }
+});
 </script>
 
 <style scoped></style>
